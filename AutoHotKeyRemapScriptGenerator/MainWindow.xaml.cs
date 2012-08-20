@@ -21,7 +21,8 @@ namespace AutoHotKeyRemapScriptGenerator
     public partial class MainWindow : Window
     {
         Microsoft.Win32.SaveFileDialog SaveFileDialog = new Microsoft.Win32.SaveFileDialog();
-        
+
+        bool isClear = false;
         public MainWindow()
         {            
             InitializeComponent();
@@ -54,24 +55,24 @@ namespace AutoHotKeyRemapScriptGenerator
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
-            DeleteEntry();
+            if (isClear)
+            {
+                Clear();
+
+            }
+            else DeleteEntry();
         }
         
         private void AddEntry()
         {
-            KeyToBeRemapped.Focus();
-            listBox1.Items.Add(KeyToBeRemapped.Text + "::" + KeyRemap.Text);
-            KeyToBeRemapped.Text = "";
-            KeyRemap.Text = "";
-        }
-
-        private void DeleteEntry()
-        {
-            if (listBox1.SelectedIndex != -1)
+            if ((KeyToBeRemapped.Text != "") && (KeyRemap.Text != ""))
             {
-                listBox1.Items.RemoveAt(listBox1.SelectedIndex);
+                KeyToBeRemapped.Focus();
+                listBox1.Items.Add(KeyToBeRemapped.Text + "::" + KeyRemap.Text);
+                KeyToBeRemapped.Text = "";
+                KeyRemap.Text = "";
             }
-        }
+        }       
 
         private void button2_Click(object sender, RoutedEventArgs e)
         {
@@ -88,6 +89,41 @@ namespace AutoHotKeyRemapScriptGenerator
             }
 
         }
+
+        private void Ctrl_down(object sender, KeyEventArgs e)
+        {
+            if ((e.Key == Key.LeftCtrl) || (e.Key == Key.RightCtrl))
+            {
+                isClear = true;
+                DeleteButton.Content = "Clear";
+            }
+        }
         
+        private void Ctrl_up(object sender, KeyEventArgs e)
+        {
+            if ((e.Key != Key.LeftCtrl) || (e.Key != Key.RightCtrl))
+            {
+                isClear = false;
+                DeleteButton.Content = "Delete";
+            }
+        }
+
+        private void Clear()
+        {
+            listBox1.Items.Clear();
+            isClear = false;
+        }
+        
+        private void DeleteEntry()
+        {
+            if (listBox1.SelectedIndex != -1)
+            {
+                listBox1.Items.RemoveAt(listBox1.SelectedIndex);
+            }
+        }
+
+       
+
+      
     }
 }
