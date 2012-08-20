@@ -10,6 +10,7 @@ Using the program is easy, for example, if you want the W key to be pressed when
 you put "Up" in the left textbox and "W" in the right textbox, then press Enter or click "Add Entry". Repeat the process for each key you want to remap. 
 
 To delete an entry, simply select it and either right click on it and choose "Delete Entry" or click the "Delete" button at the bottom right.
+Alternativley, you can delete all entries by holding Ctrl and clicking the "Delete" button, which transforms into a "Clear" button.
 
 To save your script to disk, click the Save button, choose the location and click Save. It's pretty straightforward, actually.
 
